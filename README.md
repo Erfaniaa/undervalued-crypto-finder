@@ -1,6 +1,6 @@
 # Undervalued Crypto Finder
 Get a list of cryptocurrencies which are now cheap and may be a good opportunity for investment.
-This project finds some cryptocurrencies which are below the daily moving average (eg. 200).
+This project finds some cryptocurrencies which are below the daily moving average (eg. MA200).
 
 ## Run
 
