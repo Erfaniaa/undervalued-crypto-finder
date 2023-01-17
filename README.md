@@ -18,8 +18,8 @@ If this statement is still true, we will see an upward trend in the market in 20
 
 1. Clone the repository.
 2. Run `pip3 install -r requirements.txt`.
-3. Run `python3 main.py`.
-4. Just wait!
+3. If you want to get the result on the command line run `python3 main.py`. However if the output is large and you would like to view it on a file like `output.txt`, run `python3 main.py > output.txt`.
+4. Just wait! It takes time.
 
 Then you will get the result.
 
