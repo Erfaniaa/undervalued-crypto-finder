@@ -2,6 +2,8 @@
 Get a list of cryptocurrencies which are now cheap and may be a good opportunity for investment.
 This project finds some cryptocurrencies which are below the daily moving average (eg. MA200).
 
+Moreover, you can get a list of the most pumped or dumped coins of the last day.
+
 ## Overview
 
 There is a saying that has always been said and has never been violated, but we don't follow the reason and document for it now: "The cryptocurrency market always has a 1-year downward trend and a 3-year upward trend."
@@ -9,6 +11,8 @@ There is a saying that has always been said and has never been violated, but we 
 If this statement is still true, we will see an upward trend in the market in 2023 as well. When the cryptocurrency market is rising, it is a time when people, due to fear of falling behind the market, tend to look for which cryptocurrencies have not yet risen so that they can buy them and hope to make a profit in the future days. One of the ways to find strong cryptocurrencies that have an upward trend is to see which cryptocurrencies have a lower price compared to the average prices of the last 200 days. Going through all these cryptocurrencies is very time-consuming, as you can't go through all of them and check their current price and average price. To solve this problem, we wrote a tool that can make this process faster in the near future.
 
 **Note:** This tool might be more useful during a Bitcoin bullrun or an alt-season.
+
+**Update:** The most pumped or dumped (based on the last day's price change percent) coins added to the output.
 
 ## Run
 
