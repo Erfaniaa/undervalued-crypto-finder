@@ -2,6 +2,8 @@
 Get a list of cryptocurrencies which are now cheap and may be a good opportunity for investment.
 This project finds some cryptocurrencies which are below the daily moving average (eg. MA200).
 
+Moreover, you can get a list of the most pumped or dumped coins of the last day.
+
 ## Overview
 
 There is a saying that has always been said and has never been violated, but we don't follow the reason and document for it now: "The cryptocurrency market always has a 1-year downward trend and a 3-year upward trend."
