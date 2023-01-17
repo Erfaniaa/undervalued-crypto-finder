@@ -87,10 +87,6 @@ def get_cryptos_list_with_info(quote_names_list, start_time, end_time):
 			golden_cross_or_death_cross))
 		if is_crypto_undervalued(df):
 			undervalued_cryptos_list.append(quote_name[:-4])
-			print(quote_name[:-4], "is undervalued.")
-		else:
-			print(quote_name[:-4], "is not undervalued.")
-		print("Last day price change percent:", str(last_day_price_change_percent) + "%")
 		print("_" * 80)
 	cryptos_list_with_stats.sort(key=lambda tup: tup[1])
 	return undervalued_cryptos_list, cryptos_list_with_stats
