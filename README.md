@@ -10,6 +10,8 @@ If this statement is still true, we will see an upward trend in the market in 20
 
 **Note:** This tool might be more useful during a Bitcoin bullrun or an alt-season.
 
+**Update:** The most pumped or dumped (based on the last day's price change percent) coins added to the output.
+
 ## Run
 
 1. Clone the repository.
