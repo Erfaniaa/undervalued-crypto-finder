@@ -88,6 +88,7 @@ def get_cryptos_list_with_info(quote_names_list, start_time, end_time):
 		if is_crypto_undervalued(df):
 			undervalued_cryptos_list.append(quote_name[:-4])
 		print("_" * 80)
+	print("_" * 80)	
 	cryptos_list_with_stats.sort(key=lambda tup: tup[1])
 	return undervalued_cryptos_list, cryptos_list_with_stats
 
@@ -104,6 +105,7 @@ def main():
 	print("Undervalued cryptos (under daily moving average " + str(config.LOOK_BACK_DAYS) + "):")
 	for crypto_name in undervalued_cryptos_list:
 		print(crypto_name)
+	print("_" * 80)
 	print("_" * 80)
 	print("Pumped or dumped cryptos (sorted by last daily price change):")
 	for crypto_name, \
@@ -122,6 +124,7 @@ def main():
 			print("Average daily high to low change percent:", str(average_daily_high_to_low_percent) + "%")
 			print(golden_cross_or_death_cross)
 			print("_" * 80)
+	print("_" * 80)
 	print("All these information are base on the past " + str(config.LOOK_BACK_DAYS) + " days.")
 	print("For detecting golden/death cross we used MA" + str(config.LOOK_BACK_DAYS) + " and MA" + str(config.SMALLER_LOOK_BACK_DAYS) + ".")
 
