@@ -38,7 +38,8 @@ def get_data_for_quote(quote, start_time, end_time):
 
 def is_crypto_undervalued(df):
 	moving_average = df.loc[:, "Close"].mean()
-	return df["Close"].iloc[-1] < moving_average
+	last_close = df["Close"].iloc[-1]
+	return last_close < moving_average, round((moving_average - last_close) / last_close , 2)
 
 
 def get_total_start_and_end_time(moving_average_size):
@@ -85,8 +86,10 @@ def get_cryptos_list_with_info(quote_names_list, start_time, end_time):
 			average_daily_low_to_open_percent,
 			average_daily_high_to_low_percent,
 			golden_cross_or_death_cross))
-		if is_crypto_undervalued(df):
-			undervalued_cryptos_list.append(quote_name[:-4])
+
+		is_under, diff_percentage = is_crypto_undervalued(df)
+		if is_under:
+			undervalued_cryptos_list.append((quote_name[:-4], diff_percentage))
 		print("_" * 80)
 	print("_" * 80)	
 	cryptos_list_with_stats.sort(key=lambda tup: tup[1])
@@ -103,8 +106,9 @@ def run(moving_average_size, maximum_cryptos_to_consider):
 def main():
 	undervalued_cryptos_list, pumped_or_dumped_cryptos_list = run(config.LOOK_BACK_DAYS, config.MAXIMUM_CRYPTOS_TO_CONSIDER)
 	print("Undervalued cryptos (under daily moving average " + str(config.LOOK_BACK_DAYS) + "):")
-	for crypto_name in undervalued_cryptos_list:
-		print(crypto_name)
+	undervalued_cryptos_list.sort(key = lambda x: x[1], reverse=True)
+	for crypto_name, diff_percentage in undervalued_cryptos_list:
+		print(f"{crypto_name}: {diff_percentage}%")
 	print("_" * 80)
 	print("_" * 80)
 	print("Pumped or dumped cryptos (sorted by last daily price change):")
