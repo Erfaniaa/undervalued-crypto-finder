@@ -57,7 +57,7 @@ def get_total_crypto_quotes_list(maximum_cryptos_to_consider):
 
 
 def detect_golden_cross_or_death_cross(df, smaller_moving_average_size):
-	if df["Close"].mean() >= df["Close"][-smaller_moving_average_size:].mean():
+	if  df["Close"][-smaller_moving_average_size:].mean() >= df["Close"].mean():
 		return "GOLDEN CROSS"
 	else:
 		return "DEATH CROSS"
