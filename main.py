@@ -117,8 +117,7 @@ def main():
 		golden_cross_or_death_cross in pumped_or_dumped_cryptos_list:
 			print(crypto_name + ":")
 			print("Last day price change percent:", str(last_day_price_change_percent) + "%")
-			print("Average daily price change percent:", str(average_daily_close_to_open_percent) + "%")
-			print("Average daily high to low change percent:", str(average_daily_high_to_open_percent) + "%")
+			print("Average daily close to open percent:", str(average_daily_close_to_open_percent) + "%")
 			print("Average daily high to open change percent:", str(average_daily_high_to_open_percent) + "%")
 			print("Average daily low to open change percent:", str(average_daily_low_to_open_percent) + "%")
 			print("Average daily high to low change percent:", str(average_daily_high_to_low_percent) + "%")
