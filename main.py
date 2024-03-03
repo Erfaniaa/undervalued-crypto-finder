@@ -21,8 +21,8 @@ def date_range(start_datetime, end_datetime):
         yield start_datetime + datetime.timedelta(i)
 
 
-def get_data_for_quote(quote, start_time, end_time):
-	df = yfinance.download(quote, start=get_next_day_string(start_time), end=get_next_day_string(end_time), interval="1d", auto_adjust=True, prepost=True, threads=True)
+def get_data_for_pair_name(pair_name, start_time, end_time):
+	df = yfinance.download(pair_name, start=get_next_day_string(start_time), end=get_next_day_string(end_time), interval="1d", auto_adjust=True, prepost=True, threads=True)
 	df = df.reset_index()
 	df = df.dropna()
 	df = df.loc[~df.apply(lambda row: (row == 0).any(), axis=1)]
@@ -48,13 +48,13 @@ def get_total_start_and_end_time(moving_average_size):
 	return start_time.strftime("%Y-%m-%d"), end_time.strftime("%Y-%m-%d")
 
 
-def get_total_crypto_quotes_list(maximum_cryptos_to_consider):
+def get_total_crypto_pair_names_list(maximum_cryptos_to_consider):
 	html_session = HTMLSession()
 	yfinance_response = html_session.get(f"https://finance.yahoo.com/crypto?offset=0&count={maximum_cryptos_to_consider}")
 	df = pd.read_html(yfinance_response.html.raw_html)               
 	df = df[0].copy()
-	total_crypto_quotes_list = df.Symbol.tolist()
-	return total_crypto_quotes_list
+	total_crypto_pair_names_list = df.Symbol.tolist()
+	return total_crypto_pair_names_list
 
 
 def detect_golden_cross_or_death_cross(df, smaller_moving_average_size):
@@ -64,12 +64,12 @@ def detect_golden_cross_or_death_cross(df, smaller_moving_average_size):
 		return "DEATH CROSS"
 
 
-def get_cryptos_list_with_info(quote_names_list, start_time, end_time):
+def get_cryptos_list_with_info(pair_name_names_list, start_time, end_time):
 	undervalued_cryptos_list = []
 	cryptos_list_with_stats = []
-	for quote_name in quote_names_list:
-		print("Quote:", quote_name)
-		df = get_data_for_quote(quote_name, start_time, end_time)
+	for pair_name_name in pair_name_names_list:
+		print("Quote:", pair_name_name)
+		df = get_data_for_pair_name(pair_name_name, start_time, end_time)
 		print("Data downloaded.")
 		if df.shape[0] == 0:
 			continue
@@ -79,7 +79,7 @@ def get_cryptos_list_with_info(quote_names_list, start_time, end_time):
 		average_daily_low_to_open_percent = round(df["Low to Open Percent"].mean(), 2)
 		average_daily_high_to_low_percent = round(df["High to Low Percent"].mean(), 2)
 		golden_cross_or_death_cross = detect_golden_cross_or_death_cross(df, config.SMALLER_LOOK_BACK_DAYS)
-		cryptos_list_with_stats.append((quote_name[:-4],
+		cryptos_list_with_stats.append((pair_name_name[:-4],
 			last_day_price_change_percent,
 			average_daily_close_to_open_percent,
 			average_daily_high_to_open_percent,
@@ -89,7 +89,7 @@ def get_cryptos_list_with_info(quote_names_list, start_time, end_time):
 
 		is_under, diff_percentage = is_crypto_undervalued(df)
 		if is_under:
-			undervalued_cryptos_list.append((quote_name[:-4], diff_percentage))
+			undervalued_cryptos_list.append((pair_name_name[:-4], diff_percentage))
 		print("_" * 80)
 	print("_" * 80)	
 	cryptos_list_with_stats.sort(key=lambda tup: tup[1])
@@ -98,8 +98,8 @@ def get_cryptos_list_with_info(quote_names_list, start_time, end_time):
 
 def run(moving_average_size, maximum_cryptos_to_consider):
 	start_time, end_time = get_total_start_and_end_time(moving_average_size)
-	crypto_quotes_list = get_total_crypto_quotes_list(maximum_cryptos_to_consider)
-	cryptos_list_with_info = get_cryptos_list_with_info(crypto_quotes_list, start_time, end_time)
+	crypto_pair_names_list = get_total_crypto_pair_names_list(maximum_cryptos_to_consider)
+	cryptos_list_with_info = get_cryptos_list_with_info(crypto_pair_names_list, start_time, end_time)
 	return cryptos_list_with_info
 
 
