@@ -64,12 +64,12 @@ def detect_golden_cross_or_death_cross(df, smaller_moving_average_size):
 		return "DEATH CROSS"
 
 
-def get_cryptos_list_with_info(pair_name_names_list, start_time, end_time):
+def get_cryptos_list_with_info(pair_names_list, start_time, end_time):
 	undervalued_cryptos_list = []
 	cryptos_list_with_stats = []
-	for pair_name_name in pair_name_names_list:
-		print("Quote:", pair_name_name)
-		df = get_data_for_pair_name(pair_name_name, start_time, end_time)
+	for pair_name in pair_names_list:
+		print("Pair name:", pair_name)
+		df = get_data_for_pair_name(pair_name, start_time, end_time)
 		print("Data downloaded.")
 		if df.shape[0] == 0:
 			continue
@@ -79,7 +79,7 @@ def get_cryptos_list_with_info(pair_name_names_list, start_time, end_time):
 		average_daily_low_to_open_percent = round(df["Low to Open Percent"].mean(), 2)
 		average_daily_high_to_low_percent = round(df["High to Low Percent"].mean(), 2)
 		golden_cross_or_death_cross = detect_golden_cross_or_death_cross(df, config.SMALLER_LOOK_BACK_DAYS)
-		cryptos_list_with_stats.append((pair_name_name[:-4],
+		cryptos_list_with_stats.append((pair_name[:-4],
 			last_day_price_change_percent,
 			average_daily_close_to_open_percent,
 			average_daily_high_to_open_percent,
@@ -89,7 +89,7 @@ def get_cryptos_list_with_info(pair_name_names_list, start_time, end_time):
 
 		is_under, diff_percentage = is_crypto_undervalued(df)
 		if is_under:
-			undervalued_cryptos_list.append((pair_name_name[:-4], diff_percentage))
+			undervalued_cryptos_list.append((pair_name[:-4], diff_percentage))
 		print("_" * 80)
 	print("_" * 80)	
 	cryptos_list_with_stats.sort(key=lambda tup: tup[1])
